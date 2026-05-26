@@ -1,1 +1,1358 @@
-hi
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ════════ SEO ════════ -->
+  <title>আমরা তাহসিন — We Are The Tahsins | তাহসিন পরিবার বৃক্ষ</title>
+  <meta name="description" content="আমরা তাহসিন — বাংলাদেশের সকল তাহসিনদের পারিবারিক বৃক্ষ। প্রথম তাহসিন: আহনাফ তাহসিন। আপনার নাম যদি তাহসিন হয়, এই পরিবারে যোগ দিন।"/>
+  <meta name="keywords" content="তাহসিন, Tahsin, Bangladesh, Bangladeshi family, Muslim name, Islamic family tree, আহনাফ তাহসিন, Ahnaf Tahsin"/>
+  <meta name="author" content="Ahnaf Tahsin"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://tahsins.nav.bd/"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://tahsins.nav.bd/"/>
+  <meta property="og:title" content="আমরা তাহসিন — We Are The Tahsins"/>
+  <meta property="og:description" content="বাংলাদেশের সকল তাহসিনদের পারিবারিক বৃক্ষ। প্রথম তাহসিন আহনাফ তাহসিন কর্তৃক প্রতিষ্ঠিত।"/>
+  <meta property="og:locale" content="bn_BD"/>
+  <meta property="og:site_name" content="We Are The Tahsins"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="আমরা তাহসিন — We Are The Tahsins"/>
+  <meta name="twitter:description" content="বাংলাদেশের সকল তাহসিনদের পারিবারিক বৃক্ষ।"/>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "We Are The Tahsins",
+    "url": "https://tahsins.nav.bd",
+    "description": "A family tree of all Tahsins in Bangladesh, founded by Ahnaf Tahsin",
+    "foundingLocation": { "@type": "Place", "name": "Bangladesh" },
+    "founder": { "@type": "Person", "name": "Ahnaf Tahsin" }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@400;600;700;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Firebase SDK v9 compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    /* ══════════════════════════════════════
+       CSS VARIABLES — Islamic Green & Gold
+    ══════════════════════════════════════ */
+    :root {
+      --green-deep:   #0d3b2e;
+      --green-mid:    #155a40;
+      --green-light:  #1e7a56;
+      --green-bright: #27a567;
+      --gold:         #c9a84c;
+      --gold-light:   #e8c96a;
+      --gold-pale:    #f5e9c8;
+      --red-bd:       #e8001d;
+      --cream:        #faf6ee;
+      --cream-dark:   #f0e8d6;
+      --text-dark:    #1a1208;
+      --text-mid:     #4a3728;
+      --text-muted:   #8a7560;
+      --white:        #ffffff;
+      --shadow:       rgba(13,59,46,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text-dark);
+      font-family: 'Noto Serif Bengali', 'Amiri', serif;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 3px; }
+
+    /* ══ GEOMETRIC PATTERN SVG BG ══ */
+    .geo-bg {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.07'%3E%3Cpath d='M30 0l6 10.4L48 8l-4 12 12 4-10.4 6L48 42l-12-4-6 10.4L24 38l-12 4 2.4-12L4 24l12-4L12 8l12 4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ══════════ NAV ══════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--green-deep);
+      border-bottom: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+
+    .nav-star {
+      color: var(--gold);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .nav-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+
+    .nav-subtitle {
+      font-size: 0.65rem;
+      color: rgba(201,168,76,0.6);
+      letter-spacing: 0.2em;
+      font-family: 'Cinzel', serif;
+    }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 0.85rem;
+      color: rgba(201,168,76,0.7);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-menu-btn {
+      display: none;
+      background: none; border: none;
+      color: var(--gold); font-size: 1.5rem; cursor: pointer;
+    }
+
+    /* ══════════ BISMILLAH HERO ══════════ */
+    #hero {
+      min-height: 100vh;
+      background: var(--green-deep);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 7rem 2rem 5rem;
+      position: relative; overflow: hidden;
+    }
+
+    /* Arabesque corners */
+    #hero::before, #hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.25'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.2'/%3E%3Cpolygon points='100,10 190,55 190,145 100,190 10,145 10,55' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.2'/%3E%3Cpolygon points='100,30 170,65 170,135 100,170 30,135 30,65' fill='none' stroke='%23c9a84c' stroke-width='0.3' opacity='0.15'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-size: contain;
+      opacity: 0.5; pointer-events: none;
+    }
+    #hero::before { top: -50px; left: -50px; }
+    #hero::after  { bottom: -50px; right: -50px; transform: rotate(180deg); }
+
+    .hero-bismillah {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeDown 1s 0.2s forwards;
+    }
+
+    .hero-divider {
+      width: 120px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0.8rem auto 2rem;
+      opacity: 0;
+      animation: fadeDown 1s 0.4s forwards;
+    }
+
+    .hero-title-bn {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: clamp(2.5rem, 8vw, 5.5rem);
+      font-weight: 900;
+      color: var(--gold-light);
+      text-align: center;
+      line-height: 1.15;
+      opacity: 0;
+      animation: fadeDown 1s 0.5s forwards;
+    }
+
+    .hero-title-en {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      font-weight: 400;
+      color: rgba(201,168,76,0.55);
+      text-align: center;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeDown 1s 0.7s forwards;
+    }
+
+    .hero-founder-badge {
+      margin-top: 3rem;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.35);
+      padding: 1.2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      opacity: 0;
+      animation: fadeDown 1s 0.9s forwards;
+    }
+
+    .hero-founder-badge::before,
+    .hero-founder-badge::after {
+      content: '✦';
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: var(--gold); font-size: 0.8rem; opacity: 0.6;
+    }
+    .hero-founder-badge::before { left: 1rem; }
+    .hero-founder-badge::after { right: 1rem; }
+
+    .founder-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.55);
+      font-family: 'Cinzel', serif;
+      margin-bottom: 0.3rem;
+    }
+
+    .founder-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+    }
+
+    .founder-name .arabic {
+      font-family: 'Amiri', serif;
+      font-size: 1.1rem;
+      display: block;
+      color: rgba(201,168,76,0.6);
+      margin-top: 0.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      opacity: 0;
+      animation: fadeDown 1s 1.1s forwards;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════ BUTTONS ══════════ */
+    .btn {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border: none; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: all 0.3s; letter-spacing: 0.05em;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--green-deep);
+      border: 2px solid var(--gold);
+    }
+    .btn-gold:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201,168,76,0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid rgba(201,168,76,0.4);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+
+    /* ══════════ STATS RIBBON ══════════ */
+    #stats {
+      background: var(--gold);
+      padding: 1.5rem 3rem;
+      display: flex; justify-content: center;
+      flex-wrap: wrap; gap: 3rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      font-family: 'Cinzel', serif;
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: rgba(13,59,46,0.25);
+      align-self: stretch;
+    }
+
+    /* ══════════ SECTION BASE ══════════ */
+    .section {
+      padding: 7rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 35px; height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--green-deep);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title.light { color: var(--gold-light); }
+
+    /* ══════════ FAMILY TREE ══════════ */
+    #tree {
+      background: var(--green-deep);
+      position: relative;
+    }
+
+    #tree .section-inner { text-align: center; }
+
+    .tree-verse {
+      font-family: 'Amiri', serif;
+      font-size: 1.1rem;
+      color: rgba(201,168,76,0.6);
+      margin-bottom: 3rem;
+      font-style: italic;
+    }
+
+    /* Root node — Ahnaf Tahsin */
+    .tree-root {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--green-deep);
+      padding: 1.5rem 3rem;
+      position: relative;
+      margin-bottom: 0;
+      box-shadow: 0 10px 40px rgba(201,168,76,0.4);
+    }
+
+    .tree-root::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 50%;
+      transform: translateX(-50%);
+      width: 2px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.3));
+    }
+
+    .tree-root-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .tree-root-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      opacity: 0.7;
+      margin-top: 0.3rem;
+    }
+
+    .tree-root-crown {
+      position: absolute;
+      top: -16px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      color: var(--green-deep);
+    }
+
+    /* Connector line area */
+    .tree-connector {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 0;
+      height: 40px;
+      position: relative;
+    }
+
+    .tree-connector-line {
+      width: 2px;
+      background: rgba(201,168,76,0.3);
+      height: 100%;
+    }
+
+    /* Members grid under tree */
+    .tree-members-wrap {
+      margin-top: 0;
+      position: relative;
+    }
+
+    .tree-branch-line {
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .tree-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tree-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 1.8rem 1.5rem;
+      text-align: left;
+      position: relative;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .tree-card:hover {
+      border-color: rgba(201,168,76,0.5);
+      background: rgba(201,168,76,0.06);
+      transform: translateY(-4px);
+    }
+
+    .tree-card-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: rgba(201,168,76,0.3);
+      position: absolute; top: 1rem; right: 1rem;
+    }
+
+    .tree-card-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      color: var(--gold);
+    }
+
+    .tree-card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .tree-card-district {
+      font-size: 0.75rem;
+      color: rgba(201,168,76,0.5);
+      letter-spacing: 0.1em;
+      font-family: 'Cinzel', serif;
+    }
+
+    .tree-card-date {
+      font-size: 0.7rem;
+      color: rgba(201,168,76,0.3);
+      margin-top: 0.8rem;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.05em;
+    }
+
+    .tree-empty {
+      color: rgba(201,168,76,0.4);
+      font-style: italic;
+      font-size: 0.95rem;
+      padding: 3rem;
+      border: 1px dashed rgba(201,168,76,0.2);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .loading-tree {
+      color: rgba(201,168,76,0.5);
+      font-size: 0.9rem;
+      padding: 2rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ══════════ REGISTER SECTION ══════════ */
+    #register {
+      background: var(--cream);
+    }
+
+    .register-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .register-info h3 {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 1rem;
+    }
+
+    .register-info p {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .register-info .arabic-quote {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      color: var(--green-mid);
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold);
+      margin: 1.5rem 0;
+      letter-spacing: 0.05em;
+    }
+
+    .register-info .arabic-quote small {
+      display: block;
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* Form */
+    .register-form {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      padding: 3rem;
+      box-shadow: 0 8px 40px rgba(13,59,46,0.08);
+      position: relative;
+    }
+
+    .register-form::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--green-mid), var(--gold));
+    }
+
+    .form-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .form-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 0.5rem;
+      font-family: 'Cinzel', serif;
+    }
+
+    .form-label .required { color: var(--red-bd); margin-left: 3px; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--cream);
+      border: 1px solid var(--cream-dark);
+      border-bottom: 2px solid var(--cream-dark);
+      padding: 0.85rem 1rem;
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-bottom-color: var(--green-mid);
+      background: var(--white);
+    }
+
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--green-deep);
+      color: var(--gold-light);
+      border: 2px solid var(--green-deep);
+      padding: 1rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-msg {
+      margin-top: 1rem;
+      padding: 0.8rem 1rem;
+      font-size: 0.85rem;
+      font-family: 'Noto Serif Bengali', serif;
+      display: none;
+    }
+
+    .form-msg.success {
+      background: rgba(39,165,103,0.1);
+      border: 1px solid var(--green-bright);
+      color: var(--green-mid);
+      display: block;
+    }
+
+    .form-msg.error {
+      background: rgba(232,0,29,0.07);
+      border: 1px solid var(--red-bd);
+      color: var(--red-bd);
+      display: block;
+    }
+
+    /* ══════════ ABOUT TAHSIN NAME ══════════ */
+    #name-meaning {
+      background: var(--green-deep);
+      text-align: center;
+    }
+
+    .name-arabic {
+      font-family: 'Amiri', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--gold);
+      line-height: 1.1;
+      margin: 1rem 0;
+      text-shadow: 0 4px 30px rgba(201,168,76,0.3);
+    }
+
+    .name-meaning-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .meaning-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .meaning-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+    .meaning-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .meaning-card p {
+      font-size: 0.85rem;
+      color: rgba(201,168,76,0.5);
+      line-height: 1.7;
+    }
+
+    /* ══════════ FOOTER ══════════ */
+    footer {
+      background: var(--text-dark);
+      padding: 4rem 3rem 2rem;
+      border-top: 2px solid var(--gold);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-brand-bn {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 1rem;
+      color: rgba(201,168,76,0.5);
+      margin-bottom: 1rem;
+    }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.8;
+    }
+
+    .footer-col h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.1em;
+      font-family: 'Cinzel', serif;
+    }
+
+    .footer-domain {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+    }
+
+    /* ══════════ UTILITY ══════════ */
+    .text-center { text-align: center; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ══ FIREBASE CONFIG NOTICE ══ */
+    .config-notice {
+      background: rgba(232,0,29,0.1);
+      border: 1px solid var(--red-bd);
+      padding: 1rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--red-bd);
+      margin-bottom: 1.5rem;
+      display: none;
+      font-family: monospace;
+    }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media (max-width: 900px) {
+      .register-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0.8rem 1.2rem; }
+      .nav-links { display: none; }
+      .nav-menu-btn { display: block; }
+      .form-row { grid-template-columns: 1fr; }
+      .register-form { padding: 2rem 1.5rem; }
+      #stats { gap: 1.5rem; padding: 1.5rem 1rem; }
+      .stat-divider { display: none; }
+    }
+  </style>
+</head>
+<body class="geo-bg">
+
+  <!-- ══════ NAV ══════ -->
+  <nav>
+    <div class="nav-brand">
+      <span class="nav-star">☪</span>
+      <div>
+        <div class="nav-title">We Are The Tahsins</div>
+        <div class="nav-subtitle">tahsins.nav.bd</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#tree">পারিবারিক বৃক্ষ</a></li>
+      <li><a href="#register">যোগ দিন</a></li>
+      <li><a href="#name-meaning">তাহসিন নামের অর্থ</a></li>
+    </ul>
+    <button class="nav-menu-btn" onclick="toggleMobileNav()">☰</button>
+  </nav>
+
+  <!-- ══════ HERO ══════ -->
+  <section id="hero">
+    <p class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <div class="hero-divider"></div>
+    <h1 class="hero-title-bn">আমরা তাহসিন</h1>
+    <p class="hero-title-en">We Are The Tahsins</p>
+
+    <div class="hero-founder-badge">
+      <div class="founder-label">প্রথম তাহসিন · First of the Tahsins</div>
+      <div class="founder-name">
+        Ahnaf Tahsin
+        <span class="arabic">أحناف تحسين</span>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#tree" class="btn btn-gold">পারিবারিক বৃক্ষ দেখুন</a>
+      <a href="#register" class="btn btn-outline">তাহসিন পরিবারে যোগ দিন</a>
+    </div>
+  </section>
+
+  <!-- ══════ LIVE STATS ══════ -->
+  <div id="stats">
+    <div class="stat-item">
+      <span class="stat-num" id="stat-total">—</span>
+      <span class="stat-label">মোট তাহসিন</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-districts">—</span>
+      <span class="stat-label">জেলা</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-today">—</span>
+      <span class="stat-label">আজ যোগ দিয়েছেন</span>
+    </div>
+  </div>
+
+  <!-- ══════ FAMILY TREE ══════ -->
+  <section id="tree" class="section">
+    <div class="section-inner">
+      <p class="section-tag" style="color:rgba(201,168,76,0.6);justify-content:center;">পারিবারিক বৃক্ষ · Family Tree</p>
+      <h2 class="section-title light text-center mb-1">তাহসিনদের বংশবৃক্ষ</h2>
+      <p class="tree-verse reveal">"وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا" — তোমাদের আমি জাতি ও গোত্রে ভাগ করেছি যাতে তোমরা পরস্পরকে চিনতে পারো।</p>
+
+      <!-- Root -->
+      <div class="tree-root reveal mt-2" style="display:inline-block;">
+        <div class="tree-root-crown">♛</div>
+        <div class="tree-root-title">প্রথম তাহসিন · First of the Tahsins</div>
+        <div class="tree-root-name">Ahnaf Tahsin</div>
+      </div>
+
+      <!-- Connector -->
+      <div class="tree-connector">
+        <div class="tree-connector-line"></div>
+      </div>
+
+      <!-- Members -->
+      <div class="tree-members-wrap reveal">
+        <div class="tree-branch-line"></div>
+        <div class="tree-grid" id="treeGrid">
+          <div class="loading-tree">তাহসিনরা লোড হচ্ছে...</div>
+        </div>
+      </div>
+
+      <div class="text-center mt-2 reveal">
+        <a href="#register" class="btn btn-gold" style="margin-top:2rem;">আপনিও এই বৃক্ষে যোগ দিন →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ NAME MEANING ══════ -->
+  <section id="name-meaning" class="section">
+    <div class="section-inner text-center">
+      <p class="section-tag" style="justify-content:center;color:rgba(201,168,76,0.6);">ইসলামিক নাম · Islamic Name</p>
+      <h2 class="section-title light">তাহসিন — এক মহিমান্বিত নাম</h2>
+      <div class="name-arabic reveal">تحسين</div>
+      <p class="reveal" style="color:rgba(201,168,76,0.6);font-size:1rem;max-width:600px;margin:1rem auto 0;line-height:1.9;">
+        তাহসিন (تحسين) একটি বিশুদ্ধ আরবি নাম। এটি কুরআনের ভাষা থেকে আগত, অর্থে পরিপূর্ণ এবং বাংলাদেশে অত্যন্ত সমাদৃত একটি মুসলিম নাম।
+      </p>
+
+      <div class="name-meaning-cards">
+        <div class="meaning-card reveal">
+          <div class="icon">✨</div>
+          <h4>সৌন্দর্যায়ন</h4>
+          <p>সুন্দর করা, পরিশুদ্ধ করা — প্রতিটি কাজকে উত্তমভাবে করার প্রেরণা</p>
+        </div>
+        <div class="meaning-card reveal">
+          <div class="icon">🌿</div>
+          <h4>উৎকর্ষতা</h4>
+          <p>ইহসান-এর মূল থেকে — সর্বোচ্চ মান বজায় রাখা, শ্রেষ্ঠত্বের সাধনা</p>
+        </div>
+        <div class="meaning-card reveal">
+          <div class="icon">☪️</div>
+          <h4>ইসলামিক গুণ</h4>
+          <p>আল্লাহর নির্দেশ অনুযায়ী জীবন সুন্দর করার অঙ্গীকার বহনকারী নাম</p>
+        </div>
+        <div class="meaning-card reveal">
+          <div class="icon">🇧🇩</div>
+          <h4>বাংলাদেশে প্রচলিত</h4>
+          <p>বাংলাদেশের প্রতিটি বিভাগে এই নামধারী সন্তানেরা আলো ছড়াচ্ছে</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ REGISTER ══════ -->
+  <section id="register" class="section">
+    <div class="section-inner">
+      <div class="register-wrap">
+        <div class="register-info reveal">
+          <p class="section-tag">নিবন্ধন · Register</p>
+          <h2 class="section-title">তাহসিন পরিবারে<br/>আপনার নাম লিখুন</h2>
+          <p>আপনার নাম যদি তাহসিন হয়, তাহলে আপনি এই পরিবারেরই একজন। আহনাফ তাহসিনের হাত ধরে শুরু হওয়া এই বংশবৃক্ষে আপনার নাম যুক্ত করুন।</p>
+
+          <div class="arabic-quote">
+            إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ
+            <small>নিশ্চয়ই মুমিনরা পরস্পর ভাই ভাই। — সূরা হুজুরাত: ১০</small>
+          </div>
+
+          <p>নিবন্ধনের পর আপনার নাম সরাসরি পারিবারিক বৃক্ষে যুক্ত হয়ে যাবে। কোনো নকল তথ্য নেই — শুধু আসল তাহসিনরাই এখানে আছেন।</p>
+        </div>
+
+        <div class="register-form reveal">
+          <div class="config-notice" id="configNotice">
+            ⚠️ Firebase config missing. Replace the placeholder config in the &lt;script&gt; section with your Firebase project credentials.
+          </div>
+
+          <div class="form-title">তাহসিন নিবন্ধন</div>
+          <div class="form-subtitle">Tahsin Family Registration · سجل تحسين</div>
+
+          <div class="form-group">
+            <label class="form-label">আপনার পুরো নাম <span class="required">*</span></label>
+            <input type="text" class="form-input" id="f-name" placeholder="যেমন: Tahsin Ahmed / তাহসিন আহমেদ" required/>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">জেলা <span class="required">*</span></label>
+              <select class="form-select" id="f-district" required>
+                <option value="">জেলা নির্বাচন করুন</option>
+                <option>ঢাকা</option><option>চট্টগ্রাম</option><option>রাজশাহী</option>
+                <option>খুলনা</option><option>বরিশাল</option><option>সিলেট</option>
+                <option>রংপুর</option><option>ময়মনসিংহ</option><option>কুমিল্লা</option>
+                <option>গাজীপুর</option><option>নারায়ণগঞ্জ</option><option>বগুড়া</option>
+                <option>যশোর</option><option>নোয়াখালী</option><option>ফেনী</option>
+                <option>পটুয়াখালী</option><option>কক্সবাজার</option><option>ব্রাহ্মণবাড়িয়া</option>
+                <option>নেত্রকোণা</option><option>কিশোরগঞ্জ</option><option>টাঙ্গাইল</option>
+                <option>ফরিদপুর</option><option>মাদারীপুর</option><option>শরীয়তপুর</option>
+                <option>গোপালগঞ্জ</option><option>মুন্সিগঞ্জ</option><option>মানিকগঞ্জ</option>
+                <option>নরসিংদী</option><option>ঝালকাঠি</option><option>পিরোজপুর</option>
+                <option>বাগেরহাট</option><option>সাতক্ষীরা</option><option>মেহেরপুর</option>
+                <option>নড়াইল</option><option>মাগুরা</option><option>কুষ্টিয়া</option>
+                <option>চুয়াডাঙ্গা</option><option>ঝিনাইদহ</option><option>রাজবাড়ী</option>
+                <option>পাবনা</option><option>সিরাজগঞ্জ</option><option>নাটোর</option>
+                <option>নওগাঁ</option><option>চাঁপাইনবাবগঞ্জ</option><option>জয়পুরহাট</option>
+                <option>দিনাজপুর</option><option>ঠাকুরগাঁও</option><option>পঞ্চগড়</option>
+                <option>নীলফামারী</option><option>লালমনিরহাট</option><option>কুড়িগ্রাম</option>
+                <option>গাইবান্ধা</option><option>জামালপুর</option><option>শেরপুর</option>
+                <option>হবিগঞ্জ</option><option>মৌলভীবাজার</option><option>সুনামগঞ্জ</option>
+                <option>বিদেশে (বাংলাদেশি)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">বয়স</label>
+              <input type="number" class="form-input" id="f-age" min="1" max="120" placeholder="আপনার বয়স"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">পেশা / কী করছেন</label>
+            <input type="text" class="form-input" id="f-occupation" placeholder="যেমন: ছাত্র, প্রকৌশলী, ডাক্তার..."/>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">নিজের সম্পর্কে কিছু বলুন</label>
+            <textarea class="form-textarea" id="f-about" placeholder="আপনার তাহসিন পরিচয়..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">ইমেইল (ঐচ্ছিক)</label>
+            <input type="email" class="form-input" id="f-email" placeholder="ahnaf@tahsins.nav.bd"/>
+          </div>
+
+          <button class="form-submit" id="submitBtn" onclick="registerTahsin()">
+            ☪ তাহসিন পরিবারে যোগ দিন
+          </button>
+
+          <div class="form-msg" id="formMsg"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ FOOTER ══════ -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">We Are The Tahsins</div>
+        <div class="footer-brand-bn">আমরা তাহসিন</div>
+        <p class="footer-desc">বাংলাদেশের সকল তাহসিনদের পারিবারিক বৃক্ষ। প্রথম তাহসিন আহনাফ তাহসিন কর্তৃক প্রতিষ্ঠিত। ইসলামিক ভ্রাতৃত্বের বন্ধনে আবদ্ধ এক অনন্য পরিবার।</p>
+      </div>
+      <div class="footer-col">
+        <h4>লিংক</h4>
+        <ul>
+          <li><a href="#hero">হোম</a></li>
+          <li><a href="#tree">পারিবারিক বৃক্ষ</a></li>
+          <li><a href="#register">যোগ দিন</a></li>
+          <li><a href="#name-meaning">নামের অর্থ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>তথ্য</h4>
+        <ul>
+          <li><a href="#">সম্পর্কে</a></li>
+          <li><a href="#">গোপনীয়তা নীতি</a></li>
+          <li><a href="#">যোগাযোগ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 We Are The Tahsins. বাংলাদেশ 🇧🇩</span>
+      <span class="footer-domain">tahsins.nav.bd</span>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       FIREBASE CONFIG
+       ══════════════════════════════════════
+       👇 REPLACE THIS WITH YOUR FIREBASE CONFIG
+       Go to: Firebase Console → Project Settings → Your Apps → Web
+       Copy the firebaseConfig object and paste it below.
+  ══════════════════════════════════════ -->
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyDOVZzTKyqHbyoPqvF1HCuaXpzgG82VESc",
+    authDomain: "tahsins11.firebaseapp.com",
+    projectId: "tahsins11",
+    storageBucket: "tahsins11.firebasestorage.app",
+    messagingSenderId: "655110925309",
+    appId: "1:655110925309:web:bda64f5284c70cb729c794",
+    measurementId: "G-9WRMTV4LET"
+  };
+
+    // ── Init Firebase ──
+    let db = null;
+    let firebaseReady = false;
+
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      firebaseReady = true;
+    } catch(e) {
+      console.warn("Firebase not configured yet:", e.message);
+      document.getElementById('configNotice').style.display = 'block';
+    }
+
+    // ═══════════════════════════
+    //  LOAD STATS
+    // ═══════════════════════════
+    async function loadStats() {
+      if (!firebaseReady) {
+        document.getElementById('stat-total').textContent = '—';
+        document.getElementById('stat-districts').textContent = '—';
+        document.getElementById('stat-today').textContent = '—';
+        return;
+      }
+
+      try {
+        const snap = await db.collection('tahsins').get();
+        const members = snap.docs.map(d => d.data());
+
+        // Total
+        document.getElementById('stat-total').textContent = members.length;
+
+        // Unique districts
+        const districts = new Set(members.map(m => m.district).filter(Boolean));
+        document.getElementById('stat-districts').textContent = districts.size;
+
+        // Registered today
+        const today = new Date(); today.setHours(0,0,0,0);
+        const todayCount = members.filter(m => {
+          if (!m.createdAt) return false;
+          const d = m.createdAt.toDate ? m.createdAt.toDate() : new Date(m.createdAt);
+          return d >= today;
+        }).length;
+        document.getElementById('stat-today').textContent = todayCount;
+
+      } catch(e) {
+        console.error("Stats error:", e);
+      }
+    }
+
+    // ═══════════════════════════
+    //  LOAD TREE MEMBERS
+    // ═══════════════════════════
+    async function loadTreeMembers() {
+      const grid = document.getElementById('treeGrid');
+
+      if (!firebaseReady) {
+        grid.innerHTML = `<div class="tree-empty">Firebase কনফিগার করার পর এখানে তাহসিনরা দেখা যাবে।<br/><small style="font-size:0.75rem;opacity:0.6;margin-top:0.5rem;display:block;">Configure Firebase to show members.</small></div>`;
+        return;
+      }
+
+      try {
+        const snap = await db.collection('tahsins')
+          .orderBy('createdAt', 'desc')
+          .limit(50)
+          .get();
+
+        if (snap.empty) {
+          grid.innerHTML = `<div class="tree-empty" style="grid-column:1/-1;">এখনো কোনো তাহসিন যোগ দেননি। প্রথম হওয়ার সুযোগ আপনার!</div>`;
+          return;
+        }
+
+        grid.innerHTML = '';
+        snap.docs.forEach((doc, i) => {
+          const m = doc.data();
+          const date = m.createdAt
+            ? (m.createdAt.toDate ? m.createdAt.toDate() : new Date(m.createdAt)).toLocaleDateString('bn-BD')
+            : '';
+
+          grid.innerHTML += `
+            <div class="tree-card reveal">
+              <span class="tree-card-num">${String(i + 1).padStart(3, '0')}</span>
+              <div class="tree-card-icon">☪</div>
+              <div class="tree-card-name">${escapeHtml(m.name || '')}</div>
+              <div class="tree-card-district">${escapeHtml(m.district || '')}${m.occupation ? ' · ' + escapeHtml(m.occupation) : ''}</div>
+              ${date ? `<div class="tree-card-date">যোগ দিয়েছেন: ${date}</div>` : ''}
+            </div>
+          `;
+        });
+
+        // Trigger reveal for new cards
+        setTimeout(initReveal, 100);
+
+      } catch(e) {
+        grid.innerHTML = `<div class="tree-empty" style="grid-column:1/-1;">তথ্য লোড করতে সমস্যা হয়েছে। পুনরায় চেষ্টা করুন।</div>`;
+        console.error("Tree load error:", e);
+      }
+    }
+
+    // ═══════════════════════════
+    //  REGISTER
+    // ═══════════════════════════
+    async function registerTahsin() {
+      const btn = document.getElementById('submitBtn');
+      const msg = document.getElementById('formMsg');
+
+      const name       = document.getElementById('f-name').value.trim();
+      const district   = document.getElementById('f-district').value;
+      const age        = document.getElementById('f-age').value.trim();
+      const occupation = document.getElementById('f-occupation').value.trim();
+      const about      = document.getElementById('f-about').value.trim();
+      const email      = document.getElementById('f-email').value.trim();
+
+      // Validate
+      if (!name) { showMsg('error', '❌ অনুগ্রহ করে আপনার নাম লিখুন।'); return; }
+      if (!district) { showMsg('error', '❌ অনুগ্রহ করে জেলা নির্বাচন করুন।'); return; }
+
+      if (!firebaseReady) {
+        showMsg('error', '❌ Firebase কনফিগার করা হয়নি। ডেভেলপারের সাথে যোগাযোগ করুন।');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'নিবন্ধন হচ্ছে...';
+
+      try {
+        await db.collection('tahsins').add({
+          name,
+          district,
+          age:        age ? parseInt(age) : null,
+          occupation: occupation || null,
+          about:      about || null,
+          email:      email || null,
+          createdAt:  firebase.firestore.FieldValue.serverTimestamp(),
+          approved:   true
+        });
+
+        showMsg('success', '✅ আলহামদুলিল্লাহ! আপনি সফলভাবে তাহসিন পরিবারে যোগ দিয়েছেন। আপনার নাম এখন পারিবারিক বৃক্ষে দেখা যাচ্ছে।');
+        clearForm();
+        // Reload tree & stats
+        loadTreeMembers();
+        loadStats();
+      } catch(e) {
+        showMsg('error', '❌ নিবন্ধনে সমস্যা হয়েছে: ' + e.message);
+        console.error(e);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '☪ তাহসিন পরিবারে যোগ দিন';
+      }
+    }
+
+    function showMsg(type, text) {
+      const el = document.getElementById('formMsg');
+      el.className = 'form-msg ' + type;
+      el.textContent = text;
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function clearForm() {
+      ['f-name','f-district','f-age','f-occupation','f-about','f-email']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.appendChild(document.createTextNode(str));
+      return d.innerHTML;
+    }
+
+    // ═══════════════════════════
+    //  SCROLL REVEAL
+    // ═══════════════════════════
+    function initReveal() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }
+
+    // ═══════════════════════════
+    //  MOBILE NAV
+    // ═══════════════════════════
+    function toggleMobileNav() {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:var(--green-deep);padding:1.5rem;border-bottom:2px solid var(--gold);gap:1.2rem;z-index:199;';
+      }
+    }
+
+    // ═══════════════════════════
+    //  INIT
+    // ═══════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+      initReveal();
+      loadStats();
+      loadTreeMembers();
+    });
+  </script>
+
+</body>
+</html>
